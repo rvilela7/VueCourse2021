@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Hello World</title>
+    <style>
+        .red {
+            color: red;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue.js Hello World</h1>
+    <hr>
+
+    <div id="app">
+        <h1>Hello</h1>
+        {{ message }}
+
+        <img v-bind:src="imageSource" width="200">
+        <img :src="imageSource" width="200"> <!-- abrev form -->
+
+        <my-new-component></my-new-component>
+
+        <button v-on:click="sayHello">Click Me!</button>
+        <button @click="sayHello">Click Me!</button> <!-- abrev -->
+
+        <hr>
+
+        <input type="text" v-model="message">
+
+        <input type="checkbox" v-model="show">
+        <span v-if="show">Now you see me!</span>
+        <span v-else>Check me!</span>
+
+        <ul>
+            <li v-for="(fw, index) in frameworks" :class="index % 2 === 0 ? 'red' : 'blue'">{{ index }} - {{ fw }}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        Vue.component('my-new-component', {
+            template: `
+                <div>My new Component rendered</div> 
+            `
+        });
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello, world!',
+                imageSource: 'https://miro.medium.com/max/900/1*OrjCKmou1jT4It5so5gvOA.jpeg',
+                show: false,
+                frameworks: [
+                    'Vue.js',
+                    'Angular',
+                    'React',
+                    'Svelte',
+                    'Backbone',
+                    'Ember.js'
+                ]
+            },
+            methods: {
+                sayHello() {
+                    alert(this.message);
+                    this.message = 'Os ursos pardos sao giros';
+                    this.imageSource = 'https://docs.microsoft.com/pt-pt/learn/achievements/vue-first-steps.svg'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
